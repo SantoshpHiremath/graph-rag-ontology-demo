@@ -6,11 +6,9 @@ A real, runnable vector-similarity retriever over the same
 data/knowledge_base.md notes the knowledge graph is built from --
 built with scikit-learn's TfidfVectorizer + cosine similarity so this
 project doesn't depend on a live embeddings model (Ollama/OpenAI) being
-reachable, the same "make the mechanism genuinely testable without a
-live model" discipline used in llm-eval-pipeline and rag-tool-agent-demo
-elsewhere in this portfolio.
+reachable, so the mechanism is fully testable without a live model.
 
-HONEST SCOPE NOTE: TF-IDF is a real, classical information-retrieval
+Scope note: TF-IDF is a real, classical information-retrieval
 technique -- not a mock or a stub -- but it is a weaker retriever than
 a modern dense embedding model (e.g. nomic-embed-text, used in the
 sibling rag-tool-agent-demo project against a live Ollama). It's

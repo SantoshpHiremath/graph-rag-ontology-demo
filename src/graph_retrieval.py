@@ -7,9 +7,8 @@ fixed set of recognized question patterns by walking typed edges in the
 knowledge graph, rather than by similarity search over text chunks.
 
 This module deliberately does NOT use an LLM to decide which traversal
-to run -- question routing is via a small keyword-pattern matcher, the
-same honest, disclosed simplification pattern used for MockLLMClient's
-keyword routing elsewhere in this portfolio. The graph traversal itself
+to run -- question routing is via a small keyword-pattern matcher, a
+simple, deterministic approach that keeps the mechanism fully testable. The graph traversal itself
 (the actually-interesting part -- multi-hop lookups via typed edges) is
 fully real, using the real networkx graph built in knowledge_graph.py.
 """

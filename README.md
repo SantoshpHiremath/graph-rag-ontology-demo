@@ -1,19 +1,16 @@
 # graph-rag-ontology-demo
 
-A small, real Graph-RAG project: a typed knowledge graph (ontology of
+A small Graph-RAG project: a typed knowledge graph (ontology of
 services, teams, incidents, and their relations) built with `networkx`,
 compared head-to-head against flat TF-IDF vector-similarity retrieval on
 the same underlying facts — to demonstrate, not just claim, the specific
 failure mode graph-based retrieval is meant to fix: connecting two facts
 that live in different text chunks and never co-retrieve together.
 
-Built to close a specific gap named directly in a job posting (Exxeta,
-Werkstudent AI & LLM Engineering): *"RAG-Pipelines, Ontologien sowie
-Graph-RAG Systeme"* — retrieval-augmented generation pipelines,
-ontologies, and Graph-RAG systems. No project in my portfolio touched
-ontologies or graph-based retrieval before this one.
+It covers retrieval-augmented generation pipelines, ontologies, and
+Graph-RAG systems.
 
-## What this is (and isn't)
+## Scope
 
 - **The knowledge base is synthetic**: a small e-commerce platform's
   internal engineering documentation (services, team ownership,
@@ -35,13 +32,11 @@ ontologies or graph-based retrieval before this one.
   scikit-learn `TfidfVectorizer` + cosine similarity) — not a mock, not
   a stub. It's a classical (not neural/dense-embedding) retriever,
   chosen deliberately so this comparison runs fully offline without
-  depending on a live embeddings model being reachable. See the honest
-  scope note in that module's docstring for why this is a fair, not a
+  depending on a live embeddings model being reachable. See the scope
+  note in that module's docstring for why this is a fair, not a
   strawman, comparison.
 - **Question routing to a graph-traversal pattern is a small keyword
-  matcher**, not an LLM — the same disclosed-simplification pattern used
-  for `MockLLMClient`'s keyword routing elsewhere in this portfolio
-  (`ai-codegen-analyst`, `llm-eval-pipeline`). The graph traversal itself
+  matcher**, not an LLM — a simple, deterministic approach that keeps the mechanism fully testable. The graph traversal itself
   — the actually load-bearing part — is fully real.
 
 ## The demonstrated result
@@ -107,14 +102,13 @@ All 48 tests pass live, confirmed in a clean virtualenv (fresh install
 of `networkx`, `scikit-learn`, `pytest` only — no leftover packages from
 other projects). `python3 run_pipeline.py` runs cleanly end-to-end and
 prints the full vector-vs-graph comparison for 5 questions, including
-one deliberately out-of-scope question to show the graph fails honestly
-(raises a clear "no recognized pattern" error) rather than fabricating
+one deliberately out-of-scope question to show the graph failing cleanly
+(raising a clear "no recognized pattern" error) rather than fabricating
 an answer.
 
 ## Bugs found and fixed during development
 
-Documented honestly, matching the discipline used elsewhere in this
-portfolio:
+Notes from building and testing the project:
 
 1. **The notes parser silently dropped most of the graph.** The first
    version of `notes_parser.py` used line-anchored regexes
@@ -155,18 +149,17 @@ portfolio:
    moving that explanation out of the retrievable knowledge base
    entirely (into this README instead) — the source notes now contain
    only the raw facts, so the vector-vs-graph comparison is run on a
-   level, honest playing field.
+   level playing field.
 
 ## Relationship to sibling projects
 
-This project is new, built specifically to close the "Ontologien sowie
-Graph-RAG Systeme" gap — distinct from the existing vector-only RAG
-work in `rag-tool-agent-demo` (dense FAISS retrieval over unstructured
-notes, no graph or typed relations) and `rag-tool-mcp-server`. The
-"independently re-derive and cross-check rather than trust a hand-built
-data structure" discipline mirrors `ai-codegen-analyst`'s two-layer
-safety design and `llm-eval-pipeline`'s judge-verification approach:
-don't just assert correctness, demonstrate it.
+This project is distinct from the existing vector-only RAG work in
+`rag-tool-agent-demo` (dense FAISS retrieval over unstructured notes, no
+graph or typed relations) and `rag-tool-mcp-server`. The "independently
+re-derive and cross-check rather than trust a hand-built data structure"
+discipline mirrors `ai-codegen-analyst`'s two-layer safety design and
+`llm-eval-pipeline`'s judge-verification approach: don't just assert
+correctness, demonstrate it.
 
 ## Running it yourself
 
